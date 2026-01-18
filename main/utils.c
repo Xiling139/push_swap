@@ -1,54 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/24 16:28:58 by zhenming          #+#    #+#             */
-/*   Updated: 2026/01/18 14:49:11 by zhenming         ###   ########.fr       */
+/*   Created: 2026/01/14 17:32:57 by zhenming          #+#    #+#             */
+/*   Updated: 2026/01/18 17:11:37 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_error(int argc, char *argv[])
+bool	is_number(char *str)
 {
 	int	i;
 
-	i = 1;
-	if (argc == 1)
+	i = 0;
+	while (str[i])
 	{
-		ft_printf("Error\n");
-		return (true);
-	}
-	while (i < argc)
-	{
-		if (is_number(argv[i]) == false)
+		if (ft_isdigit(str[i]) == 0)
 		{
-			ft_printf("Error\n");
-			return (true);
+			return (false);
 		}
 		i++;
 	}
-	return (false);
+	return (true);
 }
 
-int	main(int argc, char *argv[])
+bool	is_sorted(int *arr, int size)
 {
 	int	i;
-	int	*numbers;
 
-	if (is_error(argc, argv) == true)
-		return (0);
-	numbers = (int *)ft_calloc(argc - 1, sizeof(int));
-	if (!numbers)
-		return (0);
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (i < size - 1)
 	{
-		numbers[i - 1] = ft_atoi(argv[i]);
+		if (arr[i] > arr[i + 1])
+			return (false);
 		i++;
 	}
-	core(numbers, argc - 1);
+	return (true);
 }
