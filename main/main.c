@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 16:28:58 by zhenming          #+#    #+#             */
-/*   Updated: 2026/01/18 14:49:11 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/01/21 17:32:59 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	core(numbers, argc - 1);
+	free(numbers);
 }

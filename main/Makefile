@@ -12,7 +12,8 @@ MAKE	:= make
 SRCS    :=  main.c \
 			core.c \
 			operations.c \
-			utils.c
+			utils.c \
+			utils2.c
 
 OBJS    := $(SRCS:.c=.o)
 
