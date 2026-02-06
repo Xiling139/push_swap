@@ -11,9 +11,12 @@ MAKE	:= make
 
 SRCS    :=  main.c \
 			core.c \
+			convert.c \
 			operations.c \
+			radix_sort.c \
 			utils.c \
-			utils2.c
+			utils2.c \
+			utils3.c
 
 OBJS    := $(SRCS:.c=.o)
 

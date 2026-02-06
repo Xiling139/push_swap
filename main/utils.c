@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:32:57 by zhenming          #+#    #+#             */
-/*   Updated: 2026/01/21 19:33:20 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:57:58 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,74 +21,74 @@ bool	is_number(char *str)
 	{
 		if (ft_isdigit(str[i]) == 0)
 		{
-			return (false);
+			if (!(str[i] == '-' && ft_isdigit(str[i + 1]) != 0))
+				return (false);
 		}
 		i++;
 	}
 	return (true);
 }
 
-bool	is_imperfectly_sorted(int *arr, int size)
+bool	is_broadly_sorted(t_stack stack)
 {
 	int	i;
 
 	i = 0;
-	while (i < size - 1)
+	while (i < stack.size - 1)
 	{
-		if (arr[i] > arr[i + 1] && !(arr[i] == array_max(arr, size) && arr[i
-					+ 1] == array_min(arr, size)))
-			return (false);
-		i++;
-	}
-	if (arr[size - 1] > arr[0])
-		return (false);
-	return (true);
-}
-
-bool	is_sorted(int *arr, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		if (arr[i] > arr[i + 1])
+		if (stack.array[i] > stack.array[i + 1]
+			&& !(stack.array[i] == array_max(stack)
+				&& stack.array[i + 1] == array_min(stack)))
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-int	array_max(int *arr, int size)
+bool	is_sorted(t_stack stack)
+{
+	int	i;
+
+	i = 0;
+	while (i < stack.size - 1)
+	{
+		if (stack.array[i] > stack.array[i + 1])
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int	array_max(t_stack stack)
 {
 	int	i;
 	int	sup;
 
 	i = 1;
-	sup = arr[0];
-	while (i < size)
+	sup = stack.array[0];
+	while (i < stack.size)
 	{
-		if (arr[i] > sup)
+		if (stack.array[i] > sup)
 		{
-			sup = arr[i];
+			sup = stack.array[i];
 		}
 		i++;
 	}
 	return (sup);
 }
 
-int	array_min(int *arr, int size)
+int	array_min(t_stack stack)
 {
 	int	i;
 	int	inf;
 
 	i = 1;
-	inf = arr[0];
-	while (i < size)
+	inf = stack.array[0];
+	while (i < stack.size)
 	{
-		if (arr[i] < inf)
+		if (stack.array[i] < inf)
 		{
-			inf = arr[i];
+			inf = stack.array[i];
 		}
 		i++;
 	}

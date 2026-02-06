@@ -5,40 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 18:55:40 by zhenming          #+#    #+#             */
-/*   Updated: 2026/01/21 19:21:54 by zhenming         ###   ########.fr       */
+/*   Created: 2026/02/06 14:38:57 by zhenming          #+#    #+#             */
+/*   Updated: 2026/02/06 14:39:57 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	allow_push(int *arr1, int size1, int num)
+bool	has_negative(t_stack stack)
 {
-	int	min_a;
-	int	max_a;
-
-	min_a = array_min(arr1, size1);
-	max_a = array_max(arr1, size1);
-	if (num <= arr1[0] && num >= arr1[size1 - 1])
-		return (true);
-	if (num < min_a && arr1[0] == min_a)
-		return (true);
-	if (num > max_a && arr1[size1 - 1] == max_a)
-		return (true);
-	return (false);
-}
-
-int	min_pos(int *arr, int size)
-{
-	int	min;
 	int	i;
 
-	min = array_min(arr, size);
 	i = 0;
-	while (true)
+	while (i < stack.size)
 	{
-		if (arr[i] == min)
-			return (i);
+		if (stack.array[i] < 0)
+			return (true);
 		i++;
 	}
+	return (false);
 }
