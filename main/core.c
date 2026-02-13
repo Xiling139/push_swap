@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 12:54:45 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/06 16:37:08 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:23:26 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int	core(t_stack a)
 	if (convert_stack(a) == -1)
 		return (-1);
 	if (is_broadly_sorted(a) == true)
-	{
-	}
+		return (0);
+	else if (a.size <= 3)
+		sort_three(a, 0);
+	else if (a.size < 99999)
+		sort(a, b);
 	else
 	{
 		radix_sort(a, b);

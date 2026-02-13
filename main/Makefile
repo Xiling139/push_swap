@@ -13,7 +13,9 @@ SRCS    :=  main.c \
 			core.c \
 			convert.c \
 			operations.c \
+			operations2.c \
 			radix_sort.c \
+			sort.c \
 			utils.c \
 			utils2.c \
 			utils3.c

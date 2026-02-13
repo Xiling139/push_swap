@@ -6,84 +6,56 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:32:20 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/06 16:32:05 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/13 16:39:16 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	digits(int i)
+int	get_pos(t_stack stack, int target)
 {
+	int	i;
+
+	i = 0;
+	while (i < stack.size)
+	{
+		if (stack.array[i] == target)
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int	sum(int *array, int index)
+{
+	int	i;
 	int	value;
 
-	value = 1;
-	if (i < 0)
+	i = 0;
+	value = 0;
+	while (i <= index)
 	{
-		i = i * -1;
-	}
-	while (i >= 2)
-	{
-		i = i / 2;
-		value++;
+		value += array[i];
+		i++;
 	}
 	return (value);
 }
 
-int	get_max_digit(t_stack stack)
+int	get_chunk_size(int size)
 {
-	int	value;
-	int	i;
-
-	value = 1;
-	i = 0;
-	while (i < stack.size)
-	{
-		if (digits(stack.array[i]) > value)
-			value = digits(stack.array[i]);
-		i++;
-	}
-	return (value);
-}
-
-int	get_digit_value(int n, int digit)
-{
-	int		denominator;
-	int		i;
-
-	denominator = 1;
-	i = 0;
-	while (i < digit - 1)
-	{
-		denominator *= 2;
-		i++;
-	}
-	return ((n / denominator) % 2);
-}
-
-bool	has_zero(t_stack stack, int digit)
-{
-	int	i;
-
-	i = 0;
-	while (i < stack.size)
-	{
-		if (get_digit_value(stack.array[i], digit) == 0)
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-bool	has_one(t_stack stack, int digit)
-{
-	int	i;
-
-	i = 0;
-	while (i < stack.size)
-	{
-		if (get_digit_value(stack.array[i], digit) == 1)
-			return (true);
-		i++;
-	}
-	return (false);
+	if (size < 25)
+		return (2);
+	if (size < 50)
+		return (4);
+	if (size < 150)
+		return (6);
+	if (size < 250)
+		return (9);
+	if (size < 350)
+		return (11);
+	if (size < 800)
+		return (13);
+	return (15);
 }
