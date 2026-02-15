@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:54:55 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/13 16:33:50 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/15 13:23:59 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,38 @@ void	move_to_top(t_stack stack, int pos)
 	}
 }
 
-void	adjust_array(t_stack b, int nbr)
+void	push_chunk(t_stack *a, t_stack *b, int chunk_max, int size)
 {
-	int	pos;
-	int	i;
-
-	i = 0;
-	if (b.size == 0)
-		return ;
-	pos = find_next_num_pos(b, nbr);
-	move_to_top(b, pos);
-}
-
-void	push_chunk(t_stack *a, t_stack *b, int chunk_max)
-{
-	while (has_value_ranged(*a, chunk_max) && a->size > 3)
+	while (has_value_ranged(*a, chunk_max) > size / 4.4)
 	{
 		if ((a->array[0] <= chunk_max) && a->array[0] < array_max(*a) - 2)
 		{
-			adjust_array(*b, a->array[0]);
-			push(a, b);
-			ft_printf("pb\n");
+			px(a, b, 'b');
+			if (b->array[0] < b->array[1] - size / 3.5)
+			{
+				if (a->array[0] > chunk_max)
+					rr(*a, *b);
+				else
+					rx(*b, 'b');
+			}
+
 		}
 		else
 		{
 			rotate(*a);
 			ft_printf("ra\n");
 		}
+	}
+}
+
+void	push_remaining(t_stack *a, t_stack *b)
+{
+	while (a->size > 3)
+	{
+		if (a->array[0] < array_max(*a) - 2)
+			px(a, b, 'b');
+		else
+			rx(*a, 'a');
 	}
 }
 
@@ -78,16 +83,16 @@ void	sort(t_stack a, t_stack b)
 	i = 1;
 	while (i <= chunks)
 	{
-		push_chunk(&a, &b, chunk_size * i);
+		push_chunk(&a, &b, chunk_size * i, chunk_size);
 		i++;
 	}
-	pos = get_pos(b, array_max(a) - 3);
-	move_to_top(b, pos);
+	push_remaining(&a, &b);
 	sort_three(a, 0);
 	while (b.size > 0)
 	{
-		push(&b, &a);
-		ft_printf("pa\n");
+		pos = get_pos(b, a.array[0] - 1);
+		move_to_top(b, pos);
+		px(&b, &a, 'a');
 	}
 }
 

@@ -13,7 +13,8 @@ SRCS    :=  main.c \
 			core.c \
 			convert.c \
 			operations.c \
-			operations2.c \
+			print_operations.c \
+			print_operations2.c \
 			radix_sort.c \
 			sort.c \
 			utils.c \

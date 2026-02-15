@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 13:41:23 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/13 14:43:00 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:56:11 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ void	rrx(t_stack stack, char x)
 {
 	rotate_reversed(stack);
 	ft_printf("rr%c\n", x);
+}
+
+void	rrr(t_stack a, t_stack b)
+{
+	rotate_reversed(a);
+	rotate_reversed(b);
+	ft_printf("rrr\n");
 }
