@@ -6,7 +6,7 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:32:57 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/06 13:57:58 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:41:15 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ bool	is_broadly_sorted(t_stack stack)
 	int	i;
 
 	i = 0;
+	if (stack.array[0] < stack.array[stack.size - 1]
+		&& !(stack.array[0] == array_min(stack)
+			&& stack.array[stack.size - 1] == array_max(stack)))
+	{
+		return (false);
+	}
 	while (i < stack.size - 1)
 	{
 		if (stack.array[i] > stack.array[i + 1]

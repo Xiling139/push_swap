@@ -6,36 +6,11 @@
 /*   By: zhenming <zhewu@student.42tokyo.jp>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:54:55 by zhenming          #+#    #+#             */
-/*   Updated: 2026/02/15 13:23:59 by zhenming         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:34:51 by zhenming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	move_to_top(t_stack stack, int pos)
-{
-	int	i;
-
-	i = 0;
-	if (pos < stack.size / 2)
-	{
-		while (i < pos)
-		{
-			rotate(stack);
-			ft_printf("rb\n");
-			i++;
-		}
-	}
-	else
-	{
-		while (i < stack.size - pos)
-		{
-			rotate_reversed(stack);
-			ft_printf("rrb\n");
-			i++;
-		}
-	}
-}
 
 void	push_chunk(t_stack *a, t_stack *b, int chunk_max, int size)
 {
@@ -51,13 +26,14 @@ void	push_chunk(t_stack *a, t_stack *b, int chunk_max, int size)
 				else
 					rx(*b, 'b');
 			}
-
 		}
 		else
 		{
 			rotate(*a);
 			ft_printf("ra\n");
 		}
+		if (a->size < 4)
+			break ;
 	}
 }
 
@@ -66,9 +42,33 @@ void	push_remaining(t_stack *a, t_stack *b)
 	while (a->size > 3)
 	{
 		if (a->array[0] < array_max(*a) - 2)
+		{
 			px(a, b, 'b');
+			if (b->array[0] < b->array[1] - 3)
+			{
+				if (a->array[0] > array_max(*a) - 2)
+					rr(*a, *b);
+				else
+					rx(*b, 'b');
+			}
+		}
 		else
 			rx(*a, 'a');
+	}
+}
+
+void	push_back(t_stack *a, t_stack *b, int chunk_min, int chunk_size)
+{
+	int	p;
+	int	num;
+
+	p = 0;
+	while (p < chunk_size && b->size > 0)
+	{
+		num = find_nearest_num(*b, chunk_min);
+		optimized_rotate(*a, *b, find_next_num_pos(*a, num), get_pos(*b, num));
+		px(b, a, 'a');
+		p++;
 	}
 }
 
@@ -77,7 +77,6 @@ void	sort(t_stack a, t_stack b)
 	const int	chunks = get_chunk_size(a.size);
 	int			chunk_size;
 	int			i;
-	int			pos;
 
 	chunk_size = a.size / chunks + 1;
 	i = 1;
@@ -88,12 +87,14 @@ void	sort(t_stack a, t_stack b)
 	}
 	push_remaining(&a, &b);
 	sort_three(a, 0);
-	while (b.size > 0)
+	chunk_size = 4;
+	i = b.size / 4 + 1;
+	while (i > 0)
 	{
-		pos = get_pos(b, a.array[0] - 1);
-		move_to_top(b, pos);
-		px(&b, &a, 'a');
+		i--;
+		push_back(&a, &b, chunk_size * (i - 1), chunk_size);
 	}
+	move_to_top(a, get_pos(a, 0), 'a');
 }
 
 void	sort_three(t_stack stack, int value)
